@@ -109,5 +109,6 @@ def main(usuario, senha, arquivo_notas):
 
     driver.close()
 
+    
 if __name__ == '__main__':
     main()
