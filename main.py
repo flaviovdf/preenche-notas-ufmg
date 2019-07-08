@@ -42,8 +42,7 @@ NOTAS = URL + 'notaTurma/notaAvaliacao/solicitar/solicitarNota.do?acao=lancarAva
 
 @click.command()
 @click.option('--usuario', prompt='Digite seu login')
-@click.option('--senha', prompt='Digite sua senha',
-              confirmation_prompt=True, hide_input=True)
+@click.option('--senha', prompt='Digite sua senha', hide_input=True)
 @click.argument('arquivo_notas')
 def main(usuario, senha, arquivo_notas):
 
@@ -101,13 +100,17 @@ def main(usuario, senha, arquivo_notas):
     # YOLO
     print('Caso as colunas existam no csv, here we go...')
     cells = '//input[@class="nota centralizado widthAval"]'
+    cols = set(df.columns)
     for cell in driver.find_elements_by_xpath(cells):
         cell.click()
         id_ = cell.get_attribute('id')[1:]
         matricula, idx_aval = map(int, id_.split('_'))
-        nota = df.loc[matricula][avaliacoes[idx_aval]]
-        cell.send_keys(nota.replace('.', ','))
+        if avaliacoes[idx_aval] in cols and matricula in df.index:
+            nota = df.loc[matricula][avaliacoes[idx_aval]]
+            cell.send_keys(nota.replace('.', ','))
 
+    print('Salve as notas e clique qq coisa para terminar')
+    input()
     driver.close()
 
 
