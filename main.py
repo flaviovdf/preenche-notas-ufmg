@@ -109,7 +109,7 @@ def main(usuario, senha, arquivo_notas):
             nota = df.loc[matricula][avaliacoes[idx_aval]]
             cell.send_keys(nota.replace('.', ','))
 
-    print('Salve as notas e clique qq coisa para terminar')
+    print('Salve as notas e digite qq coisa para terminar')
     input()
     driver.close()
 
