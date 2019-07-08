@@ -47,6 +47,7 @@ NOTAS = URL + 'notaTurma/notaAvaliacao/solicitar/solicitarNota.do?acao=lancarAva
 @click.argument('arquivo_notas')
 def main(usuario, senha, arquivo_notas):
 
+    # Pouco de programacao defensiva
     print('Lendo o arquivo')
     try:
         # Lendo como string, mais seguro
@@ -58,7 +59,6 @@ def main(usuario, senha, arquivo_notas):
         print('Preciso de csv com uma coluna Matricula')
         print('Além de uma coluna por avaliacao estilo minha ufmg AV1,AV2,EE')
         raise e
-
 
     # Inicia selenium
     print('Iniciando selenium')
@@ -98,6 +98,7 @@ def main(usuario, senha, arquivo_notas):
     for i in range(len(avaliacoes)):
         print(avaliacoes[i])
 
+    # YOLO
     print('Caso as colunas existam no csv, here we go...')
     cells = '//input[@class="nota centralizado widthAval"]'
     for cell in driver.find_elements_by_xpath(cells):
@@ -109,6 +110,6 @@ def main(usuario, senha, arquivo_notas):
 
     driver.close()
 
-    
+
 if __name__ == '__main__':
     main()
