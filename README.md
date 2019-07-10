@@ -2,6 +2,8 @@
 
 Script que preenche as notas automagicamente. Precisa de Selenium + GeckoDriver para funcionar.
 
+Como: 1) sou péssimo em manter consistência; e, 2) às vezes tenho turmas quebradas; com o script preciso apenas criar uma planilha e "importar" no sistema depois.
+
 ## Instalando o Selenium
 
 ```bash
