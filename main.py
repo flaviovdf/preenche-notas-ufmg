@@ -101,17 +101,24 @@ def main(usuario, senha, arquivo_notas):
     print('Caso as colunas existam no csv, here we go...')
     cells = '//input[@class="nota centralizado widthAval"]'
     cols = set(df.columns)
+    idx_aval = 0
     for cell in driver.find_elements_by_xpath(cells):
         cell.click()
         id_ = cell.get_attribute('id')[1:]
-        matricula, idx_aval = map(int, id_.split('_'))
+        matricula, _ = map(int, id_.split('_'))
         if avaliacoes[idx_aval] in cols and matricula in df.index:
             nota = df.loc[matricula][avaliacoes[idx_aval]]
             cell.send_keys(nota.replace('.', ','))
+        idx_aval = (idx_aval + 1) % len(avaliacoes)
 
-    print('Salve as notas e digite qq coisa para terminar')
+    print('Antes de fechar o script, ', end='')
+    print('verifique tudo e salve as notas no browser.')
+    print('Depois, digite qq coisa aqui para terminar')
     input()
-    driver.close()
+    try:
+        driver.close()
+    except:
+        pass
 
 
 if __name__ == '__main__':
