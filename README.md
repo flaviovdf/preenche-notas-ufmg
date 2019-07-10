@@ -31,9 +31,4 @@ Matricula,AV1,AV2,AV3,AV4,EE
 
 Sempre mantenha um terminal aberto. O mesmo vai perguntar para você qual é a turma, veja o vídeo abaixo.
 
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/Z7yhH-4r8YI" 
-frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen>
-</iframe>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Z7yhH-4r8YI/0.jpg)](https://www.youtube.com/watch?v=Z7yhH-4r8YI)
