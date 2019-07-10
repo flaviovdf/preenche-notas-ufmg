@@ -6,7 +6,7 @@ Como: 1) sou péssimo em manter consistência e 2) às vezes tenho turmas quebra
 
 ## Dependências
 
-1. Firefox, deve ter em qualquer distribuição linux. Em outros sistemas, instale antes.
+1. Firefox, deve ter em qualquer distribuição linux. Em outros sistemas instale o Firefox.
 1. [selenium](https://selenium-python.readthedocs.io)
 1. [gecko-driver](https://github.com/mozilla/geckodriver/)
 1. [pandas](https://pandas.pydata.org)
