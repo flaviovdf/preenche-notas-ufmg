@@ -10,6 +10,13 @@ Como: 1) sou péssimo em manter consistência; e, 2) às vezes tenho turmas queb
 pip install selenium
 ```
 
+
+## Instalando o Pandas e o Click
+
+```bash
+pip install pandas click
+```
+
 ## Instalando o GeckoDriver
 
 Execute as linhas abaixo como root. Caso prefira, mude os comandos para instalar em um outro local.
