@@ -23,6 +23,8 @@ chmod +x /usr/local/bin/geckodriver
 
 Como entrada, basta passar um csv que contenha no cabeçalho. Qualquer coluna que não seja `AV#` ou `EE` será ignorada.
 
+**A ideia aqui é que o: excell, google-sheets, \*-office, todos permitem salvar planilhas como csv**
+
 ```
 Matricula,AV1,AV2,AV3,AV4,EE
 ```
