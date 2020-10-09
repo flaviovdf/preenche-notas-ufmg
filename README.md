@@ -48,7 +48,7 @@ Sempre mantenha um terminal aberto. O mesmo vai perguntar para você qual é a t
 
 ## Formato dos Dados
 
-Como entrada, basta passar um csv que contenha no cabeçalho. Qualquer coluna que não seja `AV#` ou `EE` será ignorada.
+Como entrada, basta passar um csv que contenha um cabeçalho onde as avaliações tem os mesmos códigos do sistema (AV1, ...). Qualquer coluna que não seja `AV#` ou `EE` será ignorada.
 
 **A ideia aqui é que o: excell, google-sheets, \*-office, todos permitem salvar planilhas como csv**
 
