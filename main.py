@@ -50,9 +50,11 @@ def main(usuario, senha, arquivo_notas):
     print('Lendo o arquivo')
     try:
         # Lendo como string, mais seguro
-        df = pd.read_csv(arquivo_notas, header=0, index_col=-1, dtype=str)
+        df = pd.read_csv(arquivo_notas, header=0, index_col=None, dtype=str)
         df['Matricula'] = pd.to_numeric(df['Matricula'])
-        df = df.set_index('Matricula').fillna('0')
+        df = df.set_index('Matricula')
+        df = df.sort_index()
+        df = df.fillna('0')
     except Exception as e:
         print('Arquivo no formato errado.')
         print('Preciso de csv com uma coluna Matricula')
