@@ -2,6 +2,7 @@
 
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 import click
 import pandas as pd
@@ -9,7 +10,7 @@ import pandas as pd
 
 def parse_turmas(form):
     turmas = {}
-    for option in form.find_elements_by_tag_name('option'):
+    for option in form.find_elements(By.TAG_NAME, 'option'):
         if 'Selecione' in option.text:
             continue
         turmas[option.text] = option
@@ -37,12 +38,15 @@ def pega_turma(turmas):
 
 
 URL = 'https://sistemas.ufmg.br/diario/'
-NOTAS = URL + 'notaTurma/notaAvaliacao/solicitar/solicitarNota.do?acao=lancarAvaliacaoCompleta'
+NOTAS = URL +\
+    'notaTurma/notaAvaliacao/solicitar/solicitarNota.do' +\
+    '?acao=lancarAvaliacaoCompleta'
 
 
 @click.command()
 @click.option('--usuario', prompt='Digite seu login')
-@click.option('--senha', prompt='Digite sua senha', hide_input=True)
+@click.option('--senha', prompt='Digite sua senha',
+              hide_input=True)
 @click.argument('arquivo_notas')
 def main(usuario, senha, arquivo_notas):
 
@@ -50,7 +54,10 @@ def main(usuario, senha, arquivo_notas):
     print('Lendo o arquivo')
     try:
         # Lendo como string, mais seguro
-        df = pd.read_csv(arquivo_notas, header=0, index_col=None, dtype=str)
+        df = pd.read_csv(
+            arquivo_notas,
+            header=0, index_col=None, dtype=str
+        )
         df['Matricula'] = pd.to_numeric(df['Matricula'])
         df = df.set_index('Matricula')
         df = df.sort_index()
@@ -67,15 +74,15 @@ def main(usuario, senha, arquivo_notas):
     driver.get(URL)
 
     # Logando
-    username = driver.find_element_by_id('j_username')
-    password = driver.find_element_by_id('j_password')
+    username = driver.find_element(By.ID, 'j_username')
+    password = driver.find_element(By.ID, 'j_password')
 
     username.send_keys(usuario)
     password.send_keys(senha)
-    driver.find_element_by_name('submit').click()
+    driver.find_element(By.NAME, 'submit').click()
 
     # Form de turmas
-    form_turma = driver.find_element_by_name('turma')
+    form_turma = driver.find_element(By.NAME, 'turma')
     turmas = parse_turmas(form_turma)
     escolha_turma = pega_turma(turmas)
     escolha_turma.click()
@@ -86,13 +93,15 @@ def main(usuario, senha, arquivo_notas):
     # Desliga as notificacoes do minha ufmg
     print('Destivando e-mails')
     notificacoes = "//input[@type='checkbox' and @checked='checked']"
-    for checkbox in driver.find_elements_by_xpath(notificacoes):
+    for checkbox in driver.find_elements(By.XPATH,
+                                         notificacoes):
         checkbox.click()
 
     # Pega os nomes das provas
-    avaliacoes_header = driver.find_element_by_xpath("//div[@id='notasHead']")
+    avaliacoes_header = driver.find_element(By.XPATH,
+                                            "//div[@id='notasHead']")
     avaliacoes = []
-    for avaliacao in avaliacoes_header.find_elements_by_tag_name('a'):
+    for avaliacao in avaliacoes_header.find_elements(By.TAG_NAME, 'a'):
         avaliacoes.append(avaliacao.text)
 
     print('As avaliacoes sao:')
@@ -104,7 +113,7 @@ def main(usuario, senha, arquivo_notas):
     cells = '//input[@class="nota centralizado widthAval"]'
     cols = set(df.columns)
     idx_aval = 0
-    for cell in driver.find_elements_by_xpath(cells):
+    for cell in driver.find_elements(By.XPATH, cells):
         cell.click()
         id_ = cell.get_attribute('id')[1:]
         matricula, _ = map(int, id_.split('_'))
@@ -119,7 +128,7 @@ def main(usuario, senha, arquivo_notas):
     input()
     try:
         driver.close()
-    except:
+    except Exception:
         pass
 
 
